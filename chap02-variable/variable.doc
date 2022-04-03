@@ -32,3 +32,28 @@
   문자형           char
   정수형   byte    short    int       long
   실수형                    float     double 
+
+3. 상수와 리터럴 (constant & literal)
+상수 - 변수와 마찬가지로 값을 저장할 수 있는 공간이지만, 변수와 달리 한번 값을 저장하면 다른 값으로 변경할 수 없다. (final keyword)사용		final int MAX_SPEED = 10;  ## 상수는 선언과 동시에 값을 설정해야 한다. 
+리터럴 - 상수의 다른 이름이라 생각하자. 엄밀이 말한면, 상수는 저장공간을 뜻하며, 리터럴은 상수에 저장되는 값을 말한다. 
+
+- 변수(variable) 하나의 값을 저장하기 위한 공간
+- 상수(constant) 값을 한번만 저장할 수 있는 공간
+- 리터럴(literal) 그 자체로 값을 의미하는 것
+
+4. 형식화된 출력 - printf()
+printf() 는 '지시자(specifier)'를 통해 변수의 값을 여러 가지 형식으로 변환하여 출력한ㄴ 기능을 가지고 있다. (printf()문은 줄바꿈 안함)
+	System.out.printf ( "age: %d" , age);
+	System.out.printf ( "age: $d", 14);
+	System.out.printf ( "age:14" )
+
+	지시자specifier
+	%b	: boolean 출력
+	%d	: 10진 정수 출력
+	%o	: 8진 정수 출력
+	%x , %X : 16진 정수 출력
+	%f	: 부동 소수점의 형식으로 출력
+	%e , %E : 지수(exponent) 표현식으로 출력
+	%c	: 문자 출력
+	%s	: 문자열로 출력
+
