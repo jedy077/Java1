@@ -1,0 +1,34 @@
+1. java.lang 패키지
+java.lang 패키지는 기본이 되는 패키지, 그래서 Import 문이 필요가 없다. 
+
+1.1 Object클래스
+최고 조상 클래스
+
+protected Object clone()	객체 자신의 복사본을 만든다.
+public boolean equals(Object obj)	객체 자신과 객체 obj가 같은 객체인지 알려 준다. (같은면 true)
+protected void finalize()	객체가 소멸될 때 가비지 컬렉터에 의해 자동적으로 호출된다. 이 때 수행되어야 하는 콛가 있을 때 오버라이딩한다. 
+public Class getClass()	객체 자신의 클래스 정보를 담고 있는 Class인스턴스를 반환한다. 
+public int hashCode()		객체 자자신의 해시코드를 반환한다. 
+public String toString()	객체 ㅔ자신의 정보를 문자열로 반환한다. 
+public void notify()		객체 자신을 사용라려고 기다리는 쓰레드를 하나만 깨운다. 
+public void notifyAll()		객체 자신을 사용라려고 기다리는 모든 쓰레드를 깨운다.
+public void wait()		다른쓰레드가 notify() , notifyAll()을 호출할 때까지 현재 쓰레드를 무한히 또는 지정된 시간동안 기다리게 한다.  public void wait(long timeout), 	public void wait(long timeout, int nanos)
+
+
+equals(Object obj)
+매개변수로 객체의 참조변수를 받아서 비교하여 그 결과를 boolean값으로 알려 주는 역할을 한다. 
+Object클래스로부터 상속받은 equals메서드는 결국 두 개의 참조변수가 같은 책체를 참조하고 있는지, 즉 두 참조변수에 저장된 값(주소값)이 같은지를 판단하는 기능밖에 할 수 없다는 것을 알 수 있다. 
+
+hashCode()
+해싱 기법에 사용되는 '해시함수'를 구현한 것이다. 
+해싱은 데이터관리기법 중의 하나인데 다량의 데이터를 저장하고 검색하는 데 유용하다. 
+해시함수는 찾고자하는 값을 입력하면, 그 값이 저장된 위치를 알려주는 해시코드를 반환한다. 
+
+toString()
+이 메서드는 인스턴스에 대한 정보를 문자열로 제공할 목적으로 정의된 것이다. 
+public String toString(){
+	return getClass().getName()+"@"+Integer.toHexString(hashCode());
+}
+
+clone()
+이 메서드는 자신을 복제하여 새로운 인ㅅ턴스를 생성하는 일을 한다. (clone() 은 Interface 즉 Cloneable을 구현해야 한다. )
