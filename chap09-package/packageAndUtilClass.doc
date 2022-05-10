@@ -80,3 +80,149 @@ equals() 를 사용하면 두 문자열의 내용을 비굑하기 때문에 리�
 
 빈 문자열(empty string)
 
+String 클래스의 생성자와 메서드
+String(String s) : 주어진 문자열(s)를 갖는 String 인스턴스를 생성한다. --> String s = new String("Hello") --> S = "Hello"
+String(char[] value) : 주어진 문자열(value)을 갖는 String 인스턴스를 생성
+	char[] c = { 'H', 'e', 'l','l','o' };
+	String s = new String(c);
+	--> s = "Hello"
+String (StringBuffer buf) : StringBuffer인스턴스가 갖고 있는 문자열과 같은 내용의 String인스턴스를 생성한다. 
+	StringBuffer sb = new StringBuffer("Hello");
+	String s = new String(sb);
+	--> s = "Hello"
+char charAt(int index) : 지정된 위치(index)에 있는 문자를 알려준다. (index 는 0 부터이다.)
+	String s = "Hello";
+	String n = "0123456";
+	char c = s.charAt(1); // c = 'e'
+	char c2 = n.charAt(1); // c2 = '1'
+int compareTo(String str) : 문자열(str)과 사전순서로 비교한다, 같으면 0을, 사전순으로 이전이므녀 음수를 , 이후면 양수를 반환
+	int i = "aaa".compareTo("aaa"); // i = 0
+	int i2 = "aaa".compareTo("bbb"); // i2= -1
+	int i3 = "bbb".compareTo("aaa"); // i3 = 1
+
+String concat (String str) :  문자열(str)을 뒤에 덧붙인다. 
+	String s = "Hello";
+	String s2 = s.concat(" World!"); // s2 = "Hello World!"
+
+boolean contains(charSequence s) : 지정된 문자열(s)이 포함되었는지 검사한다. 
+	String s = "abcdefg";
+	boolean b = s.contains("bc");   // b = true
+
+boolean endsWith(String suffix) : 지정된 문자열(suffix)로 끝나는지 검사한다. 
+	String file = "Hello.txt";
+	boolean b = file.endsWith("txt") ; // b = true
+boolean equals ( Object obj) : 매개변수로 받은 문자열 (obj)과 String 인스턴스의 문자열을 비교한다 obj가 String이 아니거나 문자열이 다르면 false를 반환한다. 
+	String s = "Hello";
+	boolean b = s.equals("Hello");
+	boolean b2 = s.equals("hello");
+
+boolean equalsIgnoreCase(String str) : 문자열과 String 인스턴스의 문자열을 대소문자 구분없이 비교한다. 
+	String s = "Hello"
+	boolean b = s.equalsIgnoreCase("HELLO");
+	boolean b2 = s.equalsIgnoreCase("hello");
+
+int indexOf(char ch) : 주어진 문자(ch) 가 문자열에 존재하는지 확인하여 (index)를 알려준다. 못찾으면 -1
+	String s = "Hello";
+	boolean b = s.indexOf('o');
+	boolean b2 = s.indexOf('k');
+
+int indexOf(char ch, int pos) : 주어진 문자(ch)가 문자열에 존재하는지 지정된 위치(Pos)부터 확인하여 위치(index)를 알려준다. 못찾으면 -1
+	String s = "Hello";
+	int idx1 = s.indexOf('e', 0);
+	int idx2 = s.indexOf('e',2);
+
+int indexOf(String str) : 주어진 문자열이 존재하는지 확인하여 그 위치(index)를 알려준다. 없으면 -1
+	String s = "ABCDEFG";
+	int idx = s.indexOf("CD");
+
+String intern() : 문자열 상수풀(constant pool) 에 등록한다. 이미 상수풀에 같은 내용의 문자열이 있을 경우 , 그문자열의 주소값을 반환한다		String s = new String ("abc");
+	String s2 = new String("abc");
+	boolean b = (s==s2);
+	boolean b2 = s.equals(s2);
+	boolean b3 = (s.intern() == s2.intern());
+
+int lastIndexOf(char ch) : 지정된 문자 또는 문자코드를 문자열의 오른쪽 끝부터 찾아서 위치(index)를 알려 준다. 못찾으면 -1
+	String s = "java.lang.Object";
+	int idx1 = s.lastIndexOf('.') //
+	int idx2 = s.indexOf('.');
+
+int length() : 문자열의 길이를 알려준다. 
+
+String replace ( char old, char nw) : 문자열 중 문자(Old)를 새로운 문자(Nw)로 바꾼 문자열을 반환한다. ㅏ
+	String s = "Hello";
+	String s1 = s.replace ('H','C');
+String replace ( CharSequence old, CharSequence nw) : 문자열 중의 문자열(old)를 새로운 문자열(nw)로 모두 바꾼 문자열을 반환한다. 
+	String s = "Hellollo";
+	String s1 = s.replace("ll","LL");
+String replaceAll(String regex, String replacement) : 문자열 중에서 지정된 문자열(regex)과 일치한 것을 새로운 문자열(replacement)로 모두 변경한다. 
+	String ab = "AABBAABB"
+	String r = ab.replaceAll("BB","bb");
+
+String replaceFirst(String regex, String replacement) : 문자열 중에서 지정된 문자열(Regex)과 일치 하는 것중, 첫 번째 것만 새로운 만주열로 변경한다. 
+	String ab = "AABBAABB";
+	String r = ab.replaceFirst("BB","bb");
+String[] split(String regex) : 문자열을 지정된 분리자(regex) 로 나누어 무자열배열에 담아 반환한다.
+	String animal = "dog,cat,bear";
+	String[] arr = animal.split(",");
+String[] split(String regex, int limit) : 문자열을 지정된 분리자로 나누어 문자열배열에 담아 반환한다. 단 문자열 전체를 지정된 수로 자른다. 
+	String animal = "dog,cat,bear";
+	String[] arr = animal.split(",", 2);
+
+boolean startsWith(String prefix) : 주언진 문자열로 시작하는지 검사한다. 
+	String s = "java.lang.Object";
+	boolean b = s.startsWith("java");
+	boolean b2 = s.startsWith("lang");
+
+String substring(int begin), String substring(int begin, int end)  : 주어진 시작위치부터 끝 위치 범위에 포함된 문자열을 얻는다. 이때 시작위치의 문자는 포함되지만, 끝 위치의 문자는 포함되지 않는다. 
+	String s = "java.lang.Object";
+	String c = s.substring(10);
+	String p = s.substring(5,9);
+
+String toLowerCase() : 소문자로 반환
+String toString () : 인스턴스에 지정된 문자열을 반환한다. 
+String toUpperCase() : 대문자로 반환
+String trim() : 문자열의 왼쪽 끝과 오른쪽 끝에 있는 공백을 업앤 견과를 반환한다. 
+static String valueOf(boolean b)
+static String valueOf(cahr c)
+static String valueOf(int i)
+static String valueOf(long l)
+static String vlaueOf(float f)
+static String valueOf(double d)
+static String valueOf(Object o) 
+지지어된 값을 문자열로 변환하여 반홚나다. 참조변수의 경우, toString()을 호출한 결과를 반환한다. 
+
+join() 과 StringJoiner
+join()은 여러 문자열 사이에 구분자를 넣어서 결합한다. 
+String animals = "dog,cat,bear";
+String[] arr = animals.split(",");
+String str = String.join("-",arr);
+System.out.println(str);
+
+java.util.StringJoiner클래스를 사용해서 문자열을 결합할 수도 있다. 
+StringJoiner sj = new StringJoiner(",","[","]");
+String[] strArr = { "aaa", "bbb", "ccc" };
+for(String s : strArr )
+	sj.add(s.toUpperCase());
+System.out.println(sj.toString());
+
+유니코드의 보충문자. 
+유니코드는 원래 2byte 16bit 문자 체계, 그러나 지금은 20bit 로 확장되었다. 이에 char로는 감당이 아니되 int를 사용 즉 int ch가 됨
+
+문자 인코딩 변환
+getBytes(String charsetName)을 사용하면, 문자열의 문자 인코딩을 다른 인코딩으로 변경할 수 잇다. 
+Java 는 UTF-16을 사용하지만, 문자열 리터럴에 포함되는 문자들은 OS 인코딩을 사용한다. 
+그래서 한글 윈도우즈 인경우 문자 인코딩으로 CP949를 사용된다. 이것을 UTF-8로 변경하려면
+byte[] utf8_str = "가".getBytes("UTF-8");
+String str = new String(utf8_str, "UTF-8");
+
+String.format()
+format()은 형식화된 문자열을 만들어내는 간단한 방법이다. printf()하고 사용법이 완전히 똑같으므로 사용하는데 별 어려움은 없을 것이다. 
+String str = String.format("%d 더하기 %d는 %d입니다",3,5,3+5);
+System.out.println(str);
+
+기본형 값을 String으로 변환 +"" 하던가 아니면 String.valueOf(i) 하던가 !!
+
+String 을 기본형 값으로 valueOf를 쓰거나 parseInt()를 사용
+int i = Integer.parseInt("100");
+int i2 = Integer.valueOf("100");
+
