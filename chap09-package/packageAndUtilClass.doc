@@ -226,3 +226,151 @@ String 을 기본형 값으로 valueOf를 쓰거나 parseInt()를 사용
 int i = Integer.parseInt("100");
 int i2 = Integer.valueOf("100");
 
+
+1.3 StringBuffer 클래스와 StringBuilder 클래스
+String 클래스는 인스턴스를 생성할 때 지정된 문자열을 변경할 수 없지만, StringBuffer클래스는 변경이 가능하다. 
+내부적으로 문자열 편집을 위한 Buffer를 가지고 있으며, StringBuffer인스턴스를 생성할 때 그 크기를 지정할 수 있다. 
+이 때, 편집할 문자열의 길이를 고려하여 버퍼의 길이를 충분히 잡아주는 것이 좋다. 
+
+StringBuffer의 생성자
+StringBuffer 클래스의 인스턴스를 생성할 때, 적절한 길이의 char형 배열이 생성되고, 이 배열은 문자열을 저장하고 편집하기 위한 Buffer로 사용된다. 
+
+StringBuffer인스턴스를 생성할 때는 생성자 StringBuffer(int length)를 사용해서 StringBuffer인스턴스에 저장될 문자열의 길이를 고려하여 충분히 여유있는 크기로 지정하는 것이 좋다. default 크기는 16개 문자를 저장할 수 있는 크기의 buffer를 생성한다. 
+public StringBuffer(int length) {
+	value = new char[length];
+	shared = false;
+}
+
+public StringBuffer() {
+	this(16);
+}
+
+public StringBuffer(String str) {
+	this(str.length() + 16);
+	append(str);
+}
+
+StringBuffer변경
+StringBuffer sb = new StringBuffer("abc");
+*** append() 의 반환 타입은 StringBuffer인데 자신의 주소를 반환한다. 
+
+StringBuffer 비교
+String인스턴스 간에 비교와는 달리: String instance 에서 == 는 참조 변수가 가지고 있는 값을 비교(String instance의 주소) 그리고 equals는 참조변수가 가르키는 값을 비교하지만,,,
+
+StringBuffer instance는 == 와 equals() 모두 참조 변수가 가지고 있는 값(주소)를 나타낸다. 
+값을 비교하기 위해서는 toString() 으로 값을 불러와 비교 한다. (toString은 은 overiding 되어 있어서 String을 반환한다. )
+
+StringBuffer 클래스의 생성자와 메서드
+StringBuffer()	:16문자를 담을 수 있는 버퍼를 가진 StringBuffer인스턴스를 생성한다. 
+StringBuffer sb = new StringBuffer();
+
+StringBuffer(int length) : 지정된 개수의 문자를 담을 수 있는 버퍼를 가진 StringBuffer인스턴스를 생성한다. 
+StringBuffer sb = new StringBuffer(10);
+
+StringBuffer(String str) : 지정된 문자열 값(str)을 갖는 StringBuffer 인스턴스를 생성한다. 
+StringBuffer sb = new StringBuffer("hi");
+
+StringBuffer append(boolean b)
+StringBuffer append(char c)
+StringBuffer append(char[] str)
+StringBuffer append(double d);
+Stringbuffer append(float f)
+StringBuffer append(int i)
+StringBuffer append(long l)
+StringBuffer append(Object obj)
+StringBuffer append(String str)
+매개변수로 입력된 값을 문자열로 변환하여 StringBuffer 인스턴스가 저장하고 있는 문자열의 뒤에 덧붙인다. 
+
+int capacity() : Stringbuffer인스턴스의 버퍼크기를 알려준다. length()는 버퍼에 담긴 문자열의 길이를 알려준다. 
+
+char chatAt(int index) : 지정된 위치(index)에 있는 문자열을 반환한다. 
+
+StringBuffer delete(int start, int end) : 시작위치부터 끝 위치 사이에 있는 모든 문자를 제거한다. 끝 위치 문자 제외
+
+StringBuffer deleteCharAt(int index) : 지정된 위치의 문자를 제거한다. 
+
+StringBuffer insert(int pos, boolean b)
+StringBuffer insert(int pos, char c)
+StringBuffer insert(int pos, char[] str)
+StringBuffer insert(int pos, double d)
+StringBuffer insert(int pos, float f)
+StringBuffer insert(int pos, int i)
+StringBuffer insert(int pos, long l)
+StringBuffer insert(int pos, Object obj)
+StringBuffer insert(int pos, String str)
+두 번째 매개변수로 받은 값을 문자열로 변환하여 지정된 위치에 추가한다. 
+
+int length() 
+StringBuffer인스턴스에 저장되어 있는 문자열의 길이를 반환한다. 
+
+StringBuffer replace(int start, int end, String str)
+지정된 범위의 문자들을 주어진 문자열로 바꾼다. end 는 포함안됨
+
+StringBuffer reverse()
+StringBuffer인스턴스에 저장되어 있는 문자열의 순서를 거꾸로 나열한다. 
+
+void setCharAt(int index, char ch)
+지정된 위치의 문자를 주어진 문자로 바꾼다. 
+
+void setLength(int newLength)
+지정된 길이로 문자열의 길이를 변경한다. 
+
+String toStirng() : StringBuffer인스턴스의 문자열을 String으로 반환
+String substirng(int start) 
+String substring(int start, int end)
+
+
+StringBuilder란 ?
+StringBuffer 는 멀티쓰레드에 안전(Thread safe) 하도록 동기화되어 있다. 동기화는 Stringbuffer의 성능을 떨어뜨린다. 
+그래서 StringBuffer에서 쓰레드의 동기화만 뺀 StringBuilder가 새로 추가되었다. 
+
+1.4 Math 클래스
+
+올림, 버림, 반올림
+round() : 소수 첫 자리 반올림
+ceil() : 소수 첫 자리  올림
+floor() :소수 첫 자리  버림
+rint() : 소수 첫 자리 반올림 vs round() rint는 double 로 반환.
+
+예외를 발생시키는 메서드
+메서드 이름에 "Exact"가 포함된 메서들들이 JDK1.8부터 새로 추가되었다. 
+이들은 정수형 간의 연산에서 발생할 수 있는 오버플로우(overflow)를 감지하기 위한 것이다. 
+int addExact(int x, int y)
+int subtractExact(int x , int y)
+int multiplyExact(int x, int y);
+int incrementExact (int a);
+int decrementExact (int a)
+int negateExact (int a)
+int toInExact(long value)
+위의 연산자들은 overflow 발생시 예외(ArithmeticException) 발생
+
+삼각함수로 지수, 로그
+import static java.lang.Math.*;
+import static java.lang.System.*;
+
+class MathEx3{
+	public static void main(String arg[]){
+		int x1=1, y1=1;
+		int x2=2, y2=2;
+
+		double c = sqrt(pow(x2-x1,2) + pow(y2-y1,2));
+		double a = c * sin(PI/4);
+		double b = c * cos(PI/4);
+	//	double b = c * cos(toRadians(45));
+		out.printf ( "a = %f%n", a);
+		out.printf ( "b = %f%n", b);
+		out.printf ( "c = %f%n", c);
+		out.printf("angle=%f rad%n " , atan2(a,b));
+		out.printf("angle=%f degree%n%n", atan2(a,b) * 180 / PI);
+//		out.printf("angle=%f degree%n%n", toDegrees(atan2(a,b)));
+		out.printf ("24 * log10(2) = %f %n", 24 * log10(2));
+		out.printf ("53 * log10(2) = %f %n%n", 53 * log10(2));		
+	}
+}
+
+StrictMath 클래스
+Math 클래스는 최대한의 성능을 얻기 위해 JVM이 설치된 OS의 메서드를 호출해서 사용한다. 즉 OS에 의존적인 계산이란 뜻은 컴퓨터 마다 결과가 조금씩 다를 수 있다. 소수점 경우 예.
+
+어디에서 실행해도 똑같은 결과를 나타내도록 StrictMath 클래스를 새로 작성하였다. ( 성능은 좀 떨어지더라고 결과가 중요)
+
+
