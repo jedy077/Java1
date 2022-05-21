@@ -373,4 +373,193 @@ Math 클래스는 최대한의 성능을 얻기 위해 JVM이 설치된 OS의 �
 
 어디에서 실행해도 똑같은 결과를 나타내도록 StrictMath 클래스를 새로 작성하였다. ( 성능은 좀 떨어지더라고 결과가 중요)
 
+1.5 래퍼(wrapper)클래스
+boolean		Boolean		Boolean(boolean value)		Boolean b = new Boolean(true);
+				Boolean(String s)		Boolean b2 = new Boolean("true");
+
+char		Character	Character(char value)		Character c = new Character('a');
+
+byte		Byte		Byte(byte value)		Byte b = new Byte(10);
+				Byte(String s)			Byte b2 = new Byte("10");
+
+short		Short		Short(short value)		Short s = new Short(10);
+				Short(String s)			Short s2 = new Short("10");
+
+int		Integer		Integer(int value)		Integer i = new Integer(100);
+				Integer(String s)		Integer i2 = new Integer("100");
+
+long		Long		Long(long value)		Long l = new Long(100);
+				Long(String s)			Long l2 = new Long("100");
+
+float		Float		Float(double value)		Float f = new Float(1.0);
+				Float(float value)		Float f2 = new Float(1.0f);
+				Float(String s)			Float f3 = new Float("1.0f");
+
+double		Double		Double(double value)		Double d = new Double(1.0);
+				Double(String s)		Double d2 = new Double("1.0");
+
+Number Class
+Byte Short Int Long Float Double BigInteger BigDecimal
+
+문자열을 숫자로 변환하기
+int i = new Integer("100").intValue();// floatValue(), longValue()...
+int i2 = Integer.parseInt("100");
+Integer i3 = Integer.valueOf("100")
+
+문자열 -> 기본형
+byte	b = Byte.parseByte("100");
+short	s = Short.parseShort("100");
+int	i = Integer.parseInt("100");
+long	l = Long.parseLong("100");
+float	f = Float.parseFloat("3.14");
+double	d = Double.parseDouble("3.14");
+
+문자열 -> 래퍼클래스
+Byte	b = Byte.valueOf("100");
+Short	s = Short.valueOf("100");
+Integer i = Integer.valueOf("100");
+Long	l = Long.valueOf("100");
+Float	f = Float.valueOf("3.14");
+Double	d = Double.valueOf("3.14");
+
+JDK1.5 	부터 autoboxing 기능 때문에 기ㅎ본형일 때와 래퍼 클래스일 때의 차이가 없어졌음. 그냥 구별없이 사용 가능 단 성은은 valueOf()가 떨어짐.
+
+오토박싱 & 언박싱(autoboxing & unboxing)
+
+
+2. 유용한 클래스
+2.1 java.util.Objects클래스
+Object 클래스의 보조 클래스로 Math클래스처럼 모든 메서드가 "static"이다. 객체의 비교나 널 체크(null check)에 유용하다.
+
+isNull(), nonNull()
+static boolean isNull(Object obj)
+static boolean nonNull(Object obj)
+
+requireNonNull()은 객체가 널이 아니어야 하는 경우 사용. 만일 객체가 널이면, NullPointerException을 발생.
+static <T> T requireNonNull(T obj)
+static <T> T requireNonNull(T obj, String message)
+static <T> T requireNonNull(T obj, Supplier<String> messageSupplier>
+
+compare() : 같으면 0 , 크면 양수, 작으면 음수
+static int compare (Object a, Object b , Comparator c)
+
+equals()  --> 기본적인 equals()와의 차이점은 기존은 null 을 체크해야 하지만 Objects.equals()는 null 체크를 자동으로 다해 준다. 
+static boolean equals(Object a, Object b)
+
+deepEquals(Object a , Object b)  --> 다차원 배열 을 비교할 때 효율 적이다
+
+toString()
+
+hashCode()
+
+2.2 java.util.Random 클래스
+double randNum = Math.random();
+double ranNum = new Random().nextDouble(); // 위의 문장과 동일
+
+int num = (int)(Math.random() *6) +1;
+int num = new Random(().nextInt(6) + 1; //
+
+Random클래스의 생성자와 메서드
+생성자 Random()은 아래와 같은 종자값을 System.currnetTieMillis()로 하기 때문에 실행할 때마다 얻는 난수가 달라진다. 
+public Random() {
+	this(System.currentTimeMillis());
+}
+
+
+
+toString()
+
+hashCode()
+
+2.2 java.util.Random 클래스
+double randNum = Math.random();
+double ranNum = new Random().nextDouble(); // 위의 문장과 동일
+
+int num = (int)(Math.random() *6) +1;
+int num = new Random(().nextInt(6) + 1; //
+
+Random클래스의 생성자와 메서드
+생성자 Random()은 아래와 같은 종자값을 System.currnetTieMillis()로 하기 때문에 실행할 때마다 얻는 난수가 달라진다. 
+public Random() {
+	this(System.currentTimeMillis());
+}
+
+toString()
+
+hashCode()
+
+2.2 java.util.Random 클래스
+double randNum = Math.random();
+double ranNum = new Random().nextDouble(); // 위의 문장과 동일
+
+int num = (int)(Math.random() *6) +1;
+int num = new Random(().nextInt(6) + 1; //
+
+Random클래스의 생성자와 메서드
+생성자 Random()은 아래와 같은 종자값을 System.currnetTieMillis()로 하기 때문에 실행할 때마다 얻는 난수가 달라진다. 
+public Random() {
+	this(System.currentTimeMillis());
+}
+
+2.3 정규식(Regular Expression) - java.util.regex 패키지
+정규식이란 텍스트 데이터 중에서 원하는 조건과 일치하는 문자열을 찾아 내기 위해 사용하는 것으로 미리 정의된 기호와 문자를 이용해서 작성한 문자열을 말한다. 
+
+1. 정규식을 매개변수로 Pattern 클래스의 static 메서드인 Pattern compile(String regex)을 호출하여 Pattern 인스턴스를 얻는다. 
+2. 정규식으로 비교할 대상을 매개변수로 Pattern클래스의 Matcher matcher(CharSequence inpu) 을 호출해서 Matcher인스턴스를 얻는다. 
+3. Matcher인스턴스에 boolean matches()를 호출해서 정규식에 부합하는지 확인한다. 
+
+
+----
+1. 문자열 source 에서 "broken"을 m.find()로 찾은 후 처음으로 m.appendReplacement(sb, "drunken"); 가 호출되면 source의 시작부터 "broken"을 찾은 위치까지으 내용에 "drunken"을 더해서 저장한다. 
+2. m.find()는 첫 번째 발견된 위치의 끝에서부터 다시 검색을 시작하여 두 번째 "broken"을 찾게 된다. 다시 m.appendReplacement(sb, "drunekn")가 호출
+3. m.appendTail(sb);이 호출되면 마지막으로 치환된 이후의 부분을 sb에 덧붙인다. 
+
+2.4 java.util.Scanner 클래스
+Scanner는 화면, 파일, 문자열과 같은 입력소스로부터 문자데이터를 읽어오는데 도움을 줄 목적으로 JDK1.5부터 추가되었다 
+Scanner에는 다음과 같은 생성자를 지원하기 때문에 다양한 입력소스로부터 데이터를 읽을 수 있다. 
+
+Scanner(String source)
+Scanner(File source)
+Scanner(InputStream source)
+Scanner(Readable source)
+Scanner(ReadableByteChannel source)
+Scanner(Path source)
+
+또한 Scanner는 정규식 표현을 이용한 라인단위의 검색을 지원하며 구분자에도 정규식 표현을 사용할 수 있어서 복잡한 형태의 구분자도 처리가 가능하다. 
+Scanner useDelimiter(Pattern pattern)
+Scanner useDelimiter(String pattern)
+
+JDK 1.6 부터 console 도 이용 가능 . scanner and console 동일 
+
+1.5 이전
+BufferedReader br = new BufferedReader ( new InputStreamReader (System.in));
+String input = br.readLine()
+
+JDK 1.5 이후 (java.util.Scanner)
+Scanner s = new Scanner(System.in));
+String input = s.nextLine();
+
+JDK1.6 이후 (java.io.console)
+Console console = System.console();
+String input = console.readLine();
+
+입력받을 값이 숫자라면 nextLine() 대신 nextInt(), nextLong
+
+
+
+2.5 java.util.StringTokenizer 클래스
+StringTokenizer 는 긴 문자열을 지정된 구분자(delimiter)를 기준으로 토큰이라는 여러 개의 문자열로 잘라내는 데사용된다. 
+StringTokenizer 를 이용하는 방법 이외에도 String.split 이나 Scanner의 useDelimiter(String patter)을 사용할 수 도 있다. 
+String[] result = "100,200,300,400,500".split(",");
+Scanner sc2 = new Scanner("100,200,300,400,500".useDelimiter(","));
+위으 2방식은 정규식 표현을 사용 - 복잡한 형태의 구분자로 사용할 경우 적합
+
+StringTokenizer 의 생성자와 메서드
+StringTokenizer(String str, String delim)		문자열을 지정된 구분자로 나누는 StringTokenizer를 생성한다. 
+StringTokenizer(String str, String delim, boolean returnDelims)		문자열을 지정된 구분자로 나누는 String Tokenizer을 생성한다. returnDelims의 값을 true 로 하면 구분자도 토큰으로 간주한다. 
+int countTokens()		전체 토큰의 수를 반환한다. 
+boolean hasMoreTokens()		토큰이 남아있는지 알려준다. 
+String nextToken()		다음 토큰을 반환한다. 
+
+
 
