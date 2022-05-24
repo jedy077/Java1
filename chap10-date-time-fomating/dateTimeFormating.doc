@@ -1,0 +1,37 @@
+1.날짜와 시간
+1.1 Calendar와 Date
+
+Calendar와 GregorianCalendar
+Calendar는 추상클래스이기 때문에 직접 객체를 생성할 수 없고, 메서드를 통해서 완전히 구현된 클래스의 인스턴스를 얻어야 한다. 
+Calendar cal = Calendar.getInstance();
+
+Calendar를 상속받아 완전히 구현된 클래스로는 GregorianCalendar 와 BuddhistCalenrda가 있는데 getInstance()는 시스템의 국가와 지역설정을 확인해서 태국인 경우에는 BuddhistCalendar의 인스턴스를 반환하고, 그 외에는 GregorianCalendar의 인스턴스를 반환한다. 
+
+class MyApplication {
+	public static void main(String[] args) {
+		Calendar cal = new GregorianCalendar(); // 경우에 따라 이 부분을 수정해야 함 --> 태국인경우
+	}
+}
+
+
+class MyApplication {
+	public static void main (String[] args) {
+		Calendar cal = Calendar.getInstance();
+	}
+}
+
+이럴 경우 getIntance() 의 내용은 달라져야 하겠지만, MyApplication 이 변경되지 않아도 된다는 것이 중요하다. 
+
+Date와 Calendar간의 변환
+Date 은 오래 되었지만, 아직 많이 사용하고 필요한 메서드가 많이 있기 때문에 변환이 필요할 수 있다. 
+1. Calendar를 Date로 변경
+	Calendar cal1 = Calendar.getInstance();
+	Date d = new Date(cal1.getTimeInMillis()); // Date(long date)
+
+2. Date를 Calendar로 변환
+	Date d = new Date();
+	Calendar cal = Calendar.getInstance();
+	cal.setTime(d);
+
+
+
