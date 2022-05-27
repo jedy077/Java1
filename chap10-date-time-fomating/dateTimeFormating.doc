@@ -199,3 +199,128 @@ LocalTime withNano (int nanoOfSecond)
 
 날짜와 시간의 비교 -isAfter(), isBefore(), isEqual()
 
+
+3.3 Instant
+Instant EPOCH TIME 부터 경과된 시간을 나노초 단위로 표현한다. 
+
+Instant now = Instant.now();
+Instant now2 = Instant.ofEpochSecond(now.getEpochSecond());
+Instant now3 = Instant.ofEpochSecond(now.getEpochSecond(), now.getNano());
+
+필드에 저장된 값을 가지올 때 
+long epochSec = now.getEpochSecond();
+int nano = now.getNano()
+
+Instant와 Date간의 변환
+Instant는 기존의 java.util.Date를 대체하기 위한 것이며, JDK1.8부터 Date에 Instant로 변환할 수 있는 새로운 메서드가 추가되었다. 
+static Date from(Instant instant) // Instant -> Date
+Instant	toInstant()	// Date -> Instant
+
+3.4 LocalDateTime과 ZonedDateTime
+LocalDate + LocalTime -> LocalDateTime
+LocalDateTime + 시간대 -> ZonedDateTime
+
+LocalDate date = LocalDate.of(2015,12,31);
+LocalTime time = LocalTime.of(12,34,56);
+
+LocalDateTime dt = LocalDateTime.of(date,time);
+LocalDateTime dt2 = date.atTime(time);
+LocalDateTime dt3 = time.atDate(date);
+LocalDateTime dt4 = date.atTime(12,34,56);
+LocalDateTime dt5 = time.atDate(LocalDate.of(2015,12,31);
+LocalDateTime dt6 = date.atStartOfDay();
+
+LocalDateTime dateTime = LocalDateTime.of(2015,12,31,12,34,56);
+LocalDateTime today = LocalDateTime();
+
+LocalDAteTime의 변환
+LocalDateTime -> LocalDate , LocalTime
+LocalDateTime dt= LocalDateTime.of(2015,12,31,12,34,56);
+LocalDate date = dt.toLocalDate();
+LocalTime time = dt.toLocalTime();
+
+LocalDateTime으로 ZonedDateTime 만들기
+ZonedId는 일광 절약시간(DST, Daylight saving time) 을 자동적으로 처리해 주므로 편리하다. 
+
+** 사용가능한 Zoned의 목록은 Zoned.getAvailableZonedIds()로 얻을 수 있다. 
+ZonedId		zid = ZonedId.of("Asis/Seoul");
+ZonedDateTime zdt = dateTime.atZone(zid);
+
+ZonedDateTime zdt = LocalDate.now().atStartOfDay(zid);
+
+ZonedId		nyId = ZonedId.of("America/New_York");
+ZonedDateTime	nyTime = ZonedDateTime.now().withZoneSameInstant(nyId);
+
+ZoneOffSet
+UTC로부터 얼마만큼 떨어져 있는지를 ZoneOffSet 으로 표현
+ZoneOffSet krOffset = ZonedDateTime.now().getOffSet();
+int krOffsetInSec = krOffset.get(ChronoField.OFFSET_SECOND);
+
+OffsetDateTime
+ZonedDateTime zdt = ZonedDateTime.of(date, time, zid);
+OffsetDateTime odt = OffsetDateTime.of(date,time,krOffset);
+OffsetDateTime odt = zdt.toOffsetDateTime()
+
+ZonedDateTime의 변환
+ZonedDateTime도 LocalDateTime처럼 날짜와 시간에 관련된 다른 클래스로 변환하는 메서드들을 가지고 있따. 
+
+LocalDate	toLocalDate();
+LocalTime	toLocalTime();
+LocalDateTeim	toLocalDateTime();
+OffsetDateTime	toOffsetDateTime();
+log		toEpochSecond();
+Instant		toInstant();
+
+3.5 TemporalAdjusters
+자주 쓰일만한 날짜 계산들을 대신 해주는 메서드를 정의해놓은 것이 TemporalAdjusters class
+
+LocalDate today = LocalDate.now();
+LocalDate nextMonday = today.with(TemporalAdjusters.next(DayOfWeek.MONDAY);
+
+firstDayOfNextYear()		다음해의 첫날
+firstDayOfNextMonth()		다음달의 첫날
+firstDayOfYear()		올해의 첫날	
+firstDayOfMonth()		이번달의 첫날
+lastDayOfYear()			올해의 마지막 날
+lastDayOfMonth()		이번달의 마지막 날
+firstInMonth (DayOfWeek dayOfWeek)	이번달의 첫번째 ? 요일
+lastInMonth ( DayOfWeek dayOfWeek)	이번 달의 마지막 ? 요일
+previous (DayOfWeek dayOfWeek)		지난 ? 요일 (당일 미포함)
+previousOrSame (DayOfWeek dayOfWeek)	지난 ? 요일 (당일 포함)
+next	(DayOfWeek dayOfWeek)		다음 ? 요일 (당일 미포함)
+nextOrSame (DayOfWeek dayOfWeek)	다음 ? 요일 (당일 포함)
+dayOfWeekInMonth(int ordinal, DayOfWeek dayOfWeek) 이번 달의 n번째 ? 요일
+
+TemporalAdjuster직접 구현하기
+LocalDate with(TemporalAdjuster adjuster)
+
+@FunctinalInterface
+public interface TemporalAdjuster {
+	Temporal adjustInfo(Teporal temporal);
+}
+
+3.6 Period 와 Duration
+날짜 - 날짜 = Period
+시간 - 시간 = Duration
+
+between()
+date1, date2 의 차이를 나타내는 Period는 between()으로 얻을 수 있다. 
+LocalDate date1 = LocalDate.of(2014,1,1);
+LocalDate date2 = LocalDate.of(2015,12,31);
+
+Period pe = Period.between(date1, date2);
+
+LocalTime time1 = LocalTime.of(01,02,03);
+LocalTime time2 = LocalTime.of(23,23,23);
+Period pe = Period.between(time1, time2);
+
+Period,Duration에서 특정 필의 값을 얻을 때 get()
+long year = pe.get(ChronoUnit.YEARS);
+long month = pe.get(ChronoUnit.MONTHS);
+long day = pe.get(ChronoUnit.DAYS);
+
+long sec = pe.get(ChoronoUnit.SECONDS);
+int nano = pe.get(ChoronoUnit.NANOS);
+
+long hour = du.getSecond() /3600;
+long min = du.
