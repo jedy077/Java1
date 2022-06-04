@@ -324,3 +324,38 @@ int nano = pe.get(ChoronoUnit.NANOS);
 
 long hour = du.getSecond() /3600;
 long min = du.
+
+between() 과 until()
+until()과 between()은 거의 같은 일을 한다. 
+차이점은 between()은 static 메서드이고, until()은 인스턴스 메서드라는 차이가 있다. 
+
+of(), with()
+Period 에는 of(), ofYears(), ofMonths(), ofDays()가 있고, Duration에는 of(), ofDays(), ofHours(). ofMinutes(), ofSeconds() 등이 있다. 
+사용법은 앞서 Local Date와 LocalTime에서 배운 것과 같다. ㅏ
+
+사직연산, 비교연산, 기타 메서드
+plus(), minus()외 곱셈과 나눗셈을 위한 메서드도 있다. 
+pe = pe.minusYears(1).multipliedBy(2);
+du = du.plusHours(1).dividedBy(60);
+
+isNegative(), isZero()
+boolean sameDate = Period.between(date1, date2).isZero();
+boolean isBefore = Duration.between(time1, time2).isNagative();
+
+다른 단위로 변환 - toTotalMonths(), toDays(), toHours(), toMinutes()
+
+클래스		메서드			설명
+Period		long to TotalMonths()	년월일을 월단위로 변환해서 반환(일 단위는 무시)
+Duration	long toDays()		일단위로 변환해서 반환
+		long toHours()		시간단위로 변환해서 반환
+		long toMinutes()	분단위로 변환해서 반환
+		long toMillis()		천분의 일초 단위호 변환해서 반환
+		long toNanos()		나노초 단위로 변환해서 반환
+
+
+LocalDate date1 = LocalDate.of(2015,11,28);
+LocalDate date2 = LocalDate.of(2015,11,29);
+
+long period = date2.toEpochDay() - date1.EpochDate();
+
+
